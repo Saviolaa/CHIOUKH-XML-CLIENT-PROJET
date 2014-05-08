@@ -32,7 +32,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.LinearGradient;
 import java.util.GregorianCalendar;
-//import jfxtras.labs.scene.control.CalendarTextField;
+import javafx.scene.control.Slider;
+
 import javafx.scene.paint.Stop;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
@@ -47,7 +48,7 @@ import javafx.stage.Stage;
 public class Client extends Application {
     
     public static String background;
-    
+    private static final String server = "http://chioukh-tp-xml-projet.saviolaa.cloudbees.net/rest/cv";
 
     public GridPane addGridPaneTop() {
         
@@ -63,6 +64,7 @@ public class Client extends Application {
     motLabel.setFont(Font.font("Arial Black", FontWeight.EXTRA_BOLD,32));
     motLabel.setStyle(" -fx-effect: innershadow( three-pass-box , rgba(0,0,0,0.4) , 6, 0.0 , 0 , 2 );");
     gridPane.add(motLabel, 1, 0);    
+     motLabel.setTextFill(Color.web("#0076a3"));
     gridPane.setHalignment(motLabel, HPos.LEFT);
     
     Label motLabel1 = new Label("Donnez le numero du CV à afficher : ");
@@ -91,7 +93,7 @@ public class Client extends Application {
     Text title = new Text("Affichage des CVs");
     title.setFont(Font.font("Arial", FontWeight.EXTRA_BOLD, 20));
      title.setStyle(" -fx-effect: innershadow( three-pass-box , rgba(0,0,0,0.4) , 6, 0.0 , 0 , 2 );");
-    
+     title.setFill(Color.web("#0076a3"));
     TextArea cssEditorFld = new TextArea();
         cssEditorFld.setPrefRowCount(400);
         cssEditorFld.setPrefColumnCount(600);
@@ -114,8 +116,9 @@ public class Client extends Application {
 
     Label motLabel = new Label("Ajouter un nouveau CV");
 
-    motLabel.setFont(Font.font("Arial Black", FontWeight.EXTRA_BOLD,20));
+    motLabel.setFont(Font.font("Arial", FontWeight.EXTRA_BOLD,20));
     motLabel.setStyle(" -fx-effect: innershadow( three-pass-box , rgba(0,0,0,0.4) , 6, 0.0 , 0 , 2 );");
+     motLabel.setTextFill(Color.web("#0076a3"));
     grid.add(motLabel, 0, 0);    
     grid.setHalignment(motLabel, HPos.LEFT);
 
@@ -156,29 +159,31 @@ public class Client extends Application {
     scolarite.setFont(Font.font("Comfortaa", FontWeight.MEDIUM, 13));
     grid.add(scolarite, 0, 5);
     grid.setHalignment(scolarite, HPos.LEFT);
-    TextField scolariteTextField = new TextField("Titre");
+    TextField scolariteTextField = new TextField();
+    scolariteTextField.setPromptText("Titre");
     grid.add(scolariteTextField, 1, 5);
     grid.setHalignment(scolariteTextField, HPos.RIGHT);
     
-    TextField scolariteTextField1 = new TextField("Universite");
+    TextField scolariteTextField1 = new TextField();
+    scolariteTextField1.setPromptText("Universite");
     grid.add(scolariteTextField1, 1, 6);
     grid.setHalignment(scolariteTextField1, HPos.RIGHT);
     
-    TextField scolariteTextField2 = new TextField("Pays");
+    TextField scolariteTextField2 = new TextField();
+    scolariteTextField2.setPromptText("Pays");
     grid.add(scolariteTextField2, 1, 7);
     grid.setHalignment(scolariteTextField2, HPos.RIGHT);
     
-   // CalendarTextField calTextFielddebut = new CalendarTextField();
-  //  calTextFielddebut.setPrefWidth(200);
-  //  calTextFielddebut.valueProperty().set(new GregorianCalendar());
-  //  grid.add(calTextFielddebut, 1, 8);
- //   grid.setHalignment(calTextFielddebut, HPos.RIGHT);
+    TextField scolariteTextField3 = new TextField();
+    scolariteTextField3.setPromptText("Date début");
+    grid.add(scolariteTextField3, 1, 8);
+    grid.setHalignment(scolariteTextField3, HPos.RIGHT);
     
-    //CalendarTextField calTextFieldfin = new CalendarTextField();
-   // calTextFieldfin.setPrefWidth(200);
-   // calTextFieldfin.valueProperty().set(new GregorianCalendar());
-   // grid.add(calTextFieldfin, 1, 9);
-  //  grid.setHalignment(calTextFieldfin, HPos.RIGHT);
+    
+    TextField scolariteTextField4 = new TextField();
+    scolariteTextField4.setPromptText("Date fin");
+    grid.add(scolariteTextField4, 1, 9);
+    grid.setHalignment(scolariteTextField4, HPos.RIGHT);
     
     
     Label experience = new Label("Experiences : ");
@@ -186,15 +191,18 @@ public class Client extends Application {
     grid.add(experience, 0, 10);
     grid.setHalignment(experience, HPos.LEFT);
     
-    TextField experienceTextField = new TextField("Titre");
+    TextField experienceTextField = new TextField();
+    experienceTextField.setPromptText("Titre");
     grid.add(experienceTextField, 1, 10);
     grid.setHalignment(experienceTextField, HPos.RIGHT);
     
-    TextField experienceTextField1 = new TextField("Durée");
+    TextField experienceTextField1 = new TextField();
+    experienceTextField1.setPromptText("Durée");
     grid.add(experienceTextField1, 1, 11);
     grid.setHalignment(experienceTextField1, HPos.RIGHT);
     
-    TextField experienceTextField2 = new TextField("Societé");
+    TextField experienceTextField2 = new TextField();
+    experienceTextField2.setPromptText("Societé");
     grid.add(experienceTextField2, 1, 12);
     grid.setHalignment(experienceTextField2, HPos.RIGHT);
     
@@ -202,15 +210,29 @@ public class Client extends Application {
     langue.setFont(Font.font("Comfortaa", FontWeight.MEDIUM, 13));
     grid.add(langue, 0, 13);
     grid.setHalignment(langue, HPos.LEFT);
-    TextField langueTextField = new TextField("Nom");
+    TextField langueTextField = new TextField();
+    langueTextField.setPromptText("Nom");
     grid.add(langueTextField, 1, 13);
     grid.setHalignment(langueTextField, HPos.RIGHT);
    
     
-    TextField langueTextField1 = new TextField("Niveau");
-    grid.add(langueTextField, 1, 14);
-    grid.setHalignment(langueTextField, HPos.RIGHT);
+    TextField langueTextField1 = new TextField();
+    langueTextField1.setPromptText("Niveau");
+    //grid.add(langueTextField1, 1, 14);
+    //grid.setHalignment(langueTextField1, HPos.RIGHT);
     
+    Slider slider = new Slider();
+    slider.setMin(0);
+    slider.setMax(10);
+    slider.setValue(5);
+    slider.setShowTickLabels(true);
+    slider.setShowTickMarks(true);
+    slider.setMajorTickUnit(10);
+    slider.setMinorTickCount(5);
+    slider.setBlockIncrement(1);
+    
+    grid.add(slider, 1, 14);
+    grid.setHalignment(slider, HPos.RIGHT);
     
     
     Button buttonok = new Button("Envoyer");
@@ -221,6 +243,7 @@ public class Client extends Application {
     
     Label note = new Label("Les champs avec * sont obligatoires");
     note.setFont(Font.font("Comfortaa", FontWeight.MEDIUM, 10));
+    note.setTextFill(Color.web("#0076a3"));
     grid.add(note, 3, 15);
     return grid;
 }
@@ -247,9 +270,9 @@ public class Client extends Application {
         root.setStyle("-fx-background-image: url('"+background+"')");  
         
         
-        Scene scene = new Scene(root, 950, 650);
+        Scene scene = new Scene(root, 950, 685);
         
-        primaryStage.setTitle("Projet Web Client - Conssomation et production CV");
+        primaryStage.setTitle("Projet Web Client - Consomation et production CV");
         primaryStage.centerOnScreen();
         
       
@@ -274,6 +297,8 @@ public class Client extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        
+        
         launch(args);
     }
     
