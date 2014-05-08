@@ -11,7 +11,7 @@
   </resources>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="Client.jar" size="926720" download="eager" />
+    <jar href="Client.jar" size="929302" download="eager" />
     <jar href="lib/JFXtras-Common-0.7rc2.1.jar" size="1283676" download="eager" />
     <jar href="lib/ant-javafx.jar" size="1004553" download="eager" />
     <jar href="lib/dt.jar" size="147558" download="eager" />

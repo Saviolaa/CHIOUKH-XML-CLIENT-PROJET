@@ -8,6 +8,7 @@ package client;
 
 
 
+import java.io.IOException;
 import javafx.application.Application;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -32,14 +33,23 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.LinearGradient;
 import java.util.GregorianCalendar;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.control.Slider;
+import javafx.scene.layout.VBoxBuilder;
 
 import javafx.scene.paint.Stop;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javax.swing.text.Document;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import org.xml.sax.SAXException;
 
 /**
  *
@@ -47,7 +57,9 @@ import javafx.stage.Stage;
  */
 public class Client extends Application {
     
-    public static String background;
+    private static String background;
+    private  Stage dialogStage = new Stage();
+    private TextArea cssEditorFld = new TextArea();
     private static final String server = "http://chioukh-tp-xml-projet.saviolaa.cloudbees.net/rest/cv";
 
     public GridPane addGridPaneTop() {
@@ -79,12 +91,24 @@ public class Client extends Application {
     Button buttonchercher = new Button("Afficher");
     buttonchercher.setPrefSize(100, 20);
     gridPane.add(buttonchercher, 2, 1);
+  
+    buttonchercher.setOnAction(new EventHandler<ActionEvent>() {
+            
+            @Override
+            public void handle(ActionEvent event) {
+                cssEditorFld.setText("Fonction TODO");
+            }
+        });
+      
     gridPane.setHalignment(numTextField, HPos.CENTER);
     gridPane.setStyle("-fx-background-color: #D8D8D8;");
 
     return gridPane;
 }
     
+   
+
+
     public VBox addVBox() {
     VBox vbox = new VBox(10);
     vbox.setPadding(new Insets(10));
@@ -94,7 +118,7 @@ public class Client extends Application {
     title.setFont(Font.font("Arial", FontWeight.EXTRA_BOLD, 20));
      title.setStyle(" -fx-effect: innershadow( three-pass-box , rgba(0,0,0,0.4) , 6, 0.0 , 0 , 2 );");
      title.setFill(Color.web("#0076a3"));
-    TextArea cssEditorFld = new TextArea();
+    
         cssEditorFld.setPrefRowCount(400);
         cssEditorFld.setPrefColumnCount(600);
         //cssEditorFld.setWrapText(true);
@@ -240,6 +264,21 @@ public class Client extends Application {
     grid.add(buttonok, 1, 15);
     grid.setHalignment(numTextField, HPos.LEFT);
     
+     buttonok.setOnAction(new EventHandler<ActionEvent>() {
+            
+            @Override
+            public void handle(ActionEvent event) {
+                dialogStage.initModality(Modality.WINDOW_MODAL);
+                
+                dialogStage.setScene(new Scene(VBoxBuilder.create().
+                 children(new Text("Cv envoyé //TODO"), new Button("OK")).
+                 alignment(Pos.CENTER).padding(new Insets(5)).style("-fx-background-color: #D8D8D8;").prefHeight(50).prefWidth(5).build()));
+                
+                dialogStage.show();
+            }
+        });
+        
+     
     
     Label note = new Label("Les champs avec * sont obligatoires");
     note.setFont(Font.font("Comfortaa", FontWeight.MEDIUM, 10));
@@ -286,6 +325,25 @@ public class Client extends Application {
         root.getChildren().add(border);
         primaryStage.setScene(scene);
         primaryStage.show();
+    }
+
+    
+     public void AfficherTousCVS() throws ParserConfigurationException, SAXException, IOException {
+        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+        Document document = (Document) documentBuilder.parse(server);
+        cssEditorFld.setText(parseCV(document));
+    }
+
+    private void AfficherUnCV(int numero) throws ParserConfigurationException, SAXException, IOException {
+        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+        Document document = (Document) documentBuilder.parse(server+"/"+numero);
+        cssEditorFld.setText(parseCV(document));
+    }
+    
+    private String parseCV(Document d) {
+        return ""; //TODO
     }
 
     /**
