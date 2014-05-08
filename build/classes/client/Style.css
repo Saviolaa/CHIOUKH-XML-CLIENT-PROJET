@@ -1,0 +1,21 @@
+/* 
+    
+*/
+
+.root { 
+    -fx-background-image: url("pw_pattern.png");
+    -fx-background-repeat: repeat repeat;
+}
+
+#root { 
+    -fx-background-image: url("pw_pattern.png");
+    -fx-background-repeat: repeat repeat;
+}
+
+
+
+#green-bar  { -fx-accent: green; -fx-opacity: 0.8; }
+#yellow-bar { -fx-accent: yellow; -fx-opacity: 0.8;}
+#orange-bar { -fx-accent: orange; -fx-opacity: 0.8;}
+#red-bar    { -fx-accent: red;    -fx-opacity: 0.8;}
+#gray-bar    { -fx-opacity: 0.8;}
